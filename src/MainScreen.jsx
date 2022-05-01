@@ -36,7 +36,9 @@ export const MainScreen = () => {
         renderItem={({ item }) => (
           <List.Item
             title={item.text}
+            titleNumberOfLines={5}
             description={`作成日時: ${format(item.createdAt, 'yyyy.MM.dd HH:mm')}`}
+            descriptionStyle={{ textAlign: 'right' }}
           />
         )}
       />
