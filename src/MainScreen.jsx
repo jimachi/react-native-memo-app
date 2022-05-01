@@ -1,36 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { List, FAB } from 'react-native-paper';
 import format from 'date-fns/format';
 import { useNavigation } from '@react-navigation/native';
-
-const memos = [
-  {
-    text:"メモメモメモ",
-    createdAt:1585574700000,  // 2020.03.3022:25
-  },
-  {
-    text:"メモメモメモ",
-    createdAt:1585567500000,  // 2020.03.3020:25
-  },
-  {
-    text:"長いメモメモメモメモメモメモメモメモメモメモメモメモメモメモ",
-    createdAt:1585459500000, // 2020.03.2914:25
-  },
-  {
-    text:"メモメモメモ",
-    createdAt:1585369500000, // 2020.03.2813:25
-  },
-  {
-    text:"メモメモメモ",
-    createdAt:1585275900000, // 2020.03.2711:25
-  },
-];
+import { loadAll } from './store/store';
 
 export const MainScreen = () => {
   const navigation = useNavigation();
+  const [memos, setMemos] = useState([]);
+
+  useEffect(() => {
+    const initialize = async () => {
+      const newMemos = await loadAll();
+      console.log(`memos: ${newMemos}`);
+      setMemos(newMemos);
+    };
+
+    const unsubscribe = () => {
+      navigation.addListener('focus', initialize);
+    };
+
+    return unsubscribe;
+  }, [navigation]);
 
   const onPressAdd = () => {
+    console.log('test')
     navigation.navigate('Compose');
   }
 
