@@ -12,7 +12,6 @@ export const MainScreen = () => {
   useEffect(() => {
     const initialize = async () => {
       const newMemos = await loadAll();
-      console.log(`memos: ${newMemos}`);
       setMemos(newMemos);
     };
 
@@ -24,7 +23,6 @@ export const MainScreen = () => {
   }, [navigation]);
 
   const onPressAdd = () => {
-    console.log('test')
     navigation.navigate('Compose');
   }
 
